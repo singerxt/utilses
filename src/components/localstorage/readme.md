@@ -60,18 +60,18 @@ _ls.clear();
 
 ## LS.getAll();
 
-```
+```javascript
 import {LS} from './components/localstorage/LS.js';
 let _ls = new LS();
 
-_ls.clear();
+_ls.getAll();
 
 // <-- Object
 ```
 
 ## LS.forEach(callback);
 
-```
+```javascript
 import {LS} from './components/localstorage/LS.js';
 let _ls = new LS();
 
@@ -83,7 +83,7 @@ _ls.forEach((value) => {
 
 ## LS.on('key', callback);
 
-```
+```javascript
 import {LS} from './components/localstorage/LS.js';
 let _ls = new LS();
 
@@ -105,6 +105,7 @@ _ls.set('testable', 'test1');
 ## LS.off('key');
 
 ```
+
 
 ```
 
