@@ -15,4 +15,5 @@ describe('utils', () => {
       expect(utils.greet).to.have.always.returned('hello');
     });
   });
+
 });
