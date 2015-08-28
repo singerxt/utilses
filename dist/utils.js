@@ -29,13 +29,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return this.remove(key);
         }
 
+        var oldValue = this.get(key);
         this._ls.setItem(key, this._serialize(val));
+
+        setTimeout(this._change.call(this, {
+          oldValue: oldValue,
+          newValue: val,
+          url: window.location,
+          key: key
+        }), 0);
 
         return val;
       }
     }, {
       key: 'get',
       value: function get(key, defaultVal) {
+        setTimeout(this._change, 0);
         return this._deserialize(this._ls.getItem(key));
       }
     }, {
@@ -73,24 +82,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       key: '_listen',
       value: function _listen() {
         if (window.addEventListener) {
-          window.addEventListener('storage', this._change.bind(this), false);
+          document.addEventListener('storage', this._change.bind(this), false);
         }
         if (window.attachEvent) {
-          window.attachEvent('storage', this._change.bind(this), false);
+          document.attachEvent('storage', this._change.bind(this), false);
         }
+        console.log('bind!');
       }
     }, {
       key: '_change',
       value: function _change(e) {
         var fire = function fire(listener) {
-          listener(JSON.parse(e.newValue), JSON.parse(e.oldValue), e.url || e.uri);
+          listener(e.newValue, e.oldValue, e.url || e.uri);
         };
+
+        if (this._listeners === undefined) {
+          return;
+        }
 
         if (!e) {
           e = window.event;
         }
 
-        var all = this._listeners(e.key);
+        var all = this._listeners[e.key];
 
         if (all) {
           all.forEach(fire);
