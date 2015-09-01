@@ -1,4 +1,5 @@
 import utils from '../../src/utils';
+import _localStorage from '../../src/components/localstorage/LS.js';
 
 describe('utils', () => {
   describe('Greet function', () => {
@@ -15,5 +16,4 @@ describe('utils', () => {
       expect(utils.greet).to.have.always.returned('hello');
     });
   });
-
 });

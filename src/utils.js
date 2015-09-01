@@ -3,6 +3,10 @@ import {LS} from './components/localstorage/LS.js';
 const utils = {
   greet() {
     return 'hello';
+  },
+
+  _ls() {
+    return new LS;
   }
 };
 
